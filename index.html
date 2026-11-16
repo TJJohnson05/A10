@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Example</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>JavaScript Cookie Example</h1>
+
+    <p>Enter your name to save it in a cookie.</p>
+
+    <input type="text" id="username" placeholder="Enter your name">
+
+    <button onclick="setCookie()">Save Cookie</button>
+
+    <p id="message"></p>
+
+    <script>
+        // Taken from w3schools: https://www.w3schools.com/js/js_cookies.asp
+        function setCookie() {
+            let username = document.getElementById("username").value;
+
+            if (username !== "") {
+                document.cookie = "username=" + encodeURIComponent(username)
+                    + "; max-age=604800; path=/";
+
+                document.getElementById("message").textContent =
+                    "Cookie saved! Reload the page to see your name.";
+            } else {
+                alert("Please enter your name.");
+            }
+        }
+
+        function getCookie() {
+            let cookies = document.cookie.split(";");
+
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+
+                if (cookie.startsWith("username=")) {
+                    return decodeURIComponent(cookie.substring(9));
+                }
+            }
+
+            return "";
+        }
+
+        window.onload = function() {
+            let username = getCookie();
+
+            if (username !== "") {
+                document.getElementById("message").textContent =
+                    "Welcome back, " + username + "!";
+            } else {
+                document.getElementById("message").textContent =
+                    "No cookie has been saved yet.";
+            }
+        };
+    </script>
+
+</body>
+<footer>
+    <p>&copy; 2026 Tyler Johnson. All rights reserved.</p>
+</footer>
+</html>
