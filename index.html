@@ -12,28 +12,12 @@
 
     <h1>JavaScript Cookie Example</h1>
 
-    <p>Enter your name to save it in a cookie.</p>
-
-    <input type="text" id="username" placeholder="Enter your name">
-
-    <button onclick="setCookie()">Save Cookie</button>
-
     <p id="message"></p>
 
     <script>
-        // Taken from w3schools: https://www.w3schools.com/js/js_cookies.asp
-        function setCookie() {
-            let username = document.getElementById("username").value;
-
-            if (username !== "") {
-                document.cookie = "username=" + encodeURIComponent(username)
-                    + "; max-age=604800; path=/";
-
-                document.getElementById("message").textContent =
-                    "Cookie saved! Reload the page to see your name.";
-            } else {
-                alert("Please enter your name.");
-            }
+        function setCookie(username) {
+            document.cookie = "username=" + encodeURIComponent(username)
+                + "; max-age=604800; path=/";
         }
 
         function getCookie() {
@@ -57,14 +41,24 @@
                 document.getElementById("message").textContent =
                     "Welcome back, " + username + "!";
             } else {
-                document.getElementById("message").textContent =
-                    "No cookie has been saved yet.";
+                username = prompt("Please enter your name:");
+
+                if (username !== null && username.trim() !== "") {
+                    setCookie(username);
+
+                    document.getElementById("message").textContent =
+                        "Welcome, " + username + "!";
+                } else {
+                    document.getElementById("message").textContent =
+                        "No cookie has been saved.";
+                }
             }
         };
     </script>
 
+    <footer>
+        <p>&copy; 2026 Tyler Johnson. All rights reserved.</p>
+    </footer>
+
 </body>
-<footer>
-    <p>&copy; 2026 Tyler Johnson. All rights reserved.</p>
-</footer>
 </html>
